@@ -1,6 +1,5 @@
 package com.caijia.qimdemo;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -21,11 +20,13 @@ public class Utils {
     /**
      * 关闭软键盘
      */
-    public static void closeSoftKeyboard(Context context) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null && ((Activity) context).getCurrentFocus() != null) {
-            inputMethodManager.hideSoftInputFromWindow(((Activity) context).getCurrentFocus()
-                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+    public static void closeSoftKeyboard(EditText et) {
+        InputMethodManager inputMethodManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(et.getWindowToken(), 0);
+    }
+
+    public static void toggleSoftKeyboard(EditText et) {
+        InputMethodManager inputMethodManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInputFromWindow(et.getWindowToken(), 0,0);
     }
 }

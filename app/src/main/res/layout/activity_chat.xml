@@ -1,32 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.caijia.qimdemo.MeasureKeyboardLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.caijia.qimdemo.MeasureKeyboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keyboard_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/keyboard_layout"
+    android:orientation="vertical"
     tools:context="com.caijia.qimdemo.ChatActivity">
 
-    <ImageButton
-        android:id="@+id/emoticon"
+    <com.caijia.qimdemo.indicator.CircleIndicator
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/view"
-        android:src="@drawable/ic_menu_share"/>
+        android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/text"
-        android:layout_above="@+id/view"
+    <com.caijia.qimdemo.ChatToolbar
+        android:id="@+id/chat_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/emoticon"
-        android:hint="input text" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:background="#333665"/>
+        android:layout_alignParentBottom="true"/>
 
 </com.caijia.qimdemo.MeasureKeyboardLayout>

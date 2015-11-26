@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * 用来测量软键盘高度的layout
+ * 必须是根布局
+ * 高度 match_parent
+ * android:windowSoftInputMode="adjustResize"
  */
 public class MeasureKeyboardLayout extends RelativeLayout {
 
@@ -61,7 +64,7 @@ public class MeasureKeyboardLayout extends RelativeLayout {
     }
 
     @Override
-        protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         if (mHeightList.size() > 1) {
             int oldHeight = mHeightList.get(0);
@@ -93,7 +96,7 @@ public class MeasureKeyboardLayout extends RelativeLayout {
      *
      * @return
      */
-    public boolean isOpen() {
+    public boolean isOpenSoftKb() {
         return mOpenKeyboard;
     }
 
