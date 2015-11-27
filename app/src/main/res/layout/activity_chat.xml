@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.caijia.qimdemo.MeasureKeyboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.caijia.qimdemo.widget.MeasureKeyboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/keyboard_layout"
     android:layout_width="match_parent"
@@ -7,14 +7,26 @@
     android:orientation="vertical"
     tools:context="com.caijia.qimdemo.ChatActivity">
 
-    <com.caijia.qimdemo.indicator.CircleIndicator
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="insert"
+        android:text="insert"
+        />
 
-    <com.caijia.qimdemo.ChatToolbar
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="remove"
+        android:text="remove"
+        android:layout_marginTop="90dp"
+        />
+
+
+    <com.caijia.qimdemo.widget.ChatToolbar
         android:id="@+id/chat_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
-</com.caijia.qimdemo.MeasureKeyboardLayout>
+</com.caijia.qimdemo.widget.MeasureKeyboardLayout>

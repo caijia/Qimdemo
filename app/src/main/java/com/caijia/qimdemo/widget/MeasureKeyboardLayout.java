@@ -1,4 +1,4 @@
-package com.caijia.qimdemo;
+package com.caijia.qimdemo.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;

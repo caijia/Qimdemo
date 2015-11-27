@@ -1,4 +1,4 @@
-package com.caijia.qimdemo;
+package com.caijia.qimdemo.util;
 
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;

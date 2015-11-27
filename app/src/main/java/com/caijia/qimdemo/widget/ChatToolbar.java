@@ -1,8 +1,9 @@
-package com.caijia.qimdemo;
+package com.caijia.qimdemo.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.caijia.qimdemo.R;
+import com.caijia.qimdemo.util.Utils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -39,7 +42,7 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
     View mEditBg;
 
     @Bind(R.id.et_chat_message)
-    EditText mEtMessage;
+    EmoticonEditText mEtMessage;
 
     @Bind(R.id.tv_chat_emoticon)
     TextView mTvEmoticon;
@@ -169,8 +172,15 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
 
             case OPEN_EMOTICON: {
                 boolean popToolbar = isPopToolbar();
+                boolean openSoftKb = mKeyboardLayout.isOpenSoftKb();
+
                 setKeyboardStyle();
                 mEditBg.setSelected(true);
+
+                if ((openSoftKb || !popToolbar) && mOnActionListener != null) {
+                    mOnActionListener.onSelectedEmoticon();
+                }
+
                 if (popToolbar) {
                     Utils.toggleSoftKeyboard(mEtMessage);
                 }
@@ -187,6 +197,10 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
                 } else {  //弹出模式
                     setKeyboardStyle();
                     Utils.closeSoftKeyboard(mEtMessage);
+
+                    if (mOnActionListener != null) {
+                        mOnActionListener.onSelectedMore();
+                    }
                 }
                 mEditBg.setSelected(false);
                 mTvEmoticon.setSelected(false);
@@ -204,8 +218,9 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
 
                 if (isVoiceType) {
                     Utils.openSoftKeyboard(mEtMessage);
-                }else{
+                } else {
                     Utils.closeSoftKeyboard(mEtMessage);
+                    mSend.setVisibility(GONE);
                 }
 
                 break;
@@ -217,6 +232,9 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
         mBtnVoice.setVisibility(GONE);
         setBottomLayoutHeight(mKeyboardLayout.getSoftKbHeight());
         mTvVoiceKeyboard.setSelected(false);
+        String message = mEtMessage.getText().toString();
+        boolean isSend = !TextUtils.isEmpty(message) && message.length() > 0;
+        mSend.setVisibility(isSend ? VISIBLE : GONE);
     }
 
     /**
@@ -235,6 +253,10 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
         });
     }
 
+    public FrameLayout getBottomLayout() {
+        return mBottomLayout;
+    }
+
     /**
      * 是否弹出底部表情，更多功能
      *
@@ -243,4 +265,28 @@ public class ChatToolbar extends RelativeLayout implements MeasureKeyboardLayout
     private boolean isPopToolbar() {
         return mBottomLayout.getHeight() != 0;
     }
+
+    public EmoticonEditText getEmoticonEditText() {
+        return mEtMessage;
+    }
+
+    public interface OnActionListener{
+
+        /**
+         * 弹出emoticon
+         */
+        void onSelectedEmoticon();
+
+        /**
+         * 弹出更多功能
+         */
+        void onSelectedMore();
+    }
+
+    private OnActionListener mOnActionListener;
+
+    public void setOnActionListener(OnActionListener actionListener){
+        mOnActionListener = actionListener;
+    }
+
 }

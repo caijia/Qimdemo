@@ -1,4 +1,4 @@
-package com.caijia.qimdemo.indicator;
+package com.caijia.qimdemo.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -29,7 +29,8 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
     }
 
     public CircleIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
+        super(context, attrs, defStyleAttr);
+        init(context, attrs);
     }
 
     public CircleIndicator(Context context) {
